@@ -1,0 +1,20 @@
+Default: &defaults
+  database: mirakel.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: mirakel_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: mirakel_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: mirakel_production.sqlite3
+  poolsize: 100
+  <<: *defaults

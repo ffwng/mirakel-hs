@@ -1,0 +1,94 @@
+name:              mirakel
+version:           0.0.0
+license:           BSD3
+license-file:      LICENSE
+author:            Richard Pilz
+maintainer:        Richard Pilz
+synopsis:          Mirakel server written in Haskell
+description:       Server for the TODO list app Mirakel, written in Haskell
+category:          Web
+stability:         Experimental
+cabal-version:     >= 1.8
+build-type:        Simple
+homepage:          http://mirakel.azapps.de/
+
+Flag dev
+    Description:   Turn on development settings, like auto-reload templates.
+    Default:       False
+
+Flag library-only
+    Description:   Build for use with "yesod devel"
+    Default:       False
+
+library
+    exposed-modules: Application
+                     Foundation
+                     Import
+                     Model
+                     Model.Types
+                     Model.Create
+                     Model.Update
+                     Handler.List
+                     Handler.Task
+                     Util.ListMovement
+                     Util.Auth
+                     Settings
+                     Settings.Development
+
+    if flag(dev) || flag(library-only)
+        cpp-options:   -DDEVELOPMENT
+        ghc-options:   -Wall -O0
+    else
+        ghc-options:   -Wall -O2
+
+    extensions: TemplateHaskell
+                QuasiQuotes
+                OverloadedStrings
+                CPP
+                MultiParamTypeClasses
+                TypeFamilies
+                GADTs
+                GeneralizedNewtypeDeriving
+                FlexibleContexts
+                EmptyDataDecls
+                DoAndIfThenElse
+
+    build-depends: base
+                 , yesod
+                 , yesod-core
+                 , bytestring
+                 , text
+                 , persistent
+                 , persistent-sqlite
+                 , wai-extra
+                 , time
+                 , aeson
+                 , path-pieces
+                 , base64-bytestring
+                 , unordered-containers
+                 , esqueleto
+                 , resourcet
+                 , monad-logger
+
+executable         mirakel
+    if flag(library-only)
+        Buildable: False
+
+    main-is:           ../main.hs
+    hs-source-dirs:    dist
+    build-depends:     base
+                     , mirakel
+                     , yesod
+
+    ghc-options:       -threaded -O2
+
+test-suite test
+    type:              exitcode-stdio-1.0
+    main-is:           main.hs
+    hs-source-dirs:    tests
+    ghc-options:       -Wall
+
+    build-depends: base
+                 , mirakel
+                 , persistent
+                 , persistent-sqlite

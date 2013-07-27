@@ -1,0 +1,27 @@
+User
+    name Text
+    email Text
+    password ByteString
+    UniqueName name
+    UniqueEmail email
+    deriving Show
+
+List
+    name Text
+    userId UserId
+    createdAt UTCTime
+    updatedAt UTCTime
+    position Position
+    sorting TasksSorting
+    UniquePosition userId position
+    deriving Show
+
+Task
+    name Text
+    content Text Maybe
+    listId ListId
+    createdAt UTCTime
+    updatedAt UTCTime
+    priority Word
+    due UTCTime Maybe
+    done Bool

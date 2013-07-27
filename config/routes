@@ -1,0 +1,12 @@
+/favicon.ico FaviconR GET
+/robots.txt RobotsR GET
+
+/lists ListsR POST GET
+
+/lists/#ListId ListR GET PUT DELETE
+/lists/#ListId/sort-by/#TasksSorting ListSortByR POST
+/lists/#ListId/move_after/#ListMovement ListMoveR POST
+/lists/#ListId/tasks ListTasksR GET POST
+
+/tasks/#TaskId TaskR GET PUT DELETE
+/tasks/#TaskId/toggle_done TaskToggleDoneR POST
