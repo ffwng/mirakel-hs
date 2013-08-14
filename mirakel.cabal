@@ -69,6 +69,8 @@ library
                  , esqueleto
                  , resourcet
                  , monad-logger
+                 , directory
+                 , warp
 
 executable         mirakel
     if flag(library-only)
